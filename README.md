@@ -4,7 +4,7 @@
 
 - **src/**: Main source code
   - **architectures/**: Neural network architectures
-    - **basic_rnn/**: Basic RNN implementation
+    - **rnn/**: RNN implementation
     - **lstm/**: LSTM implementation
     - **gru/**: GRU implementation
     - **seq2seq/**: Sequence-to-sequence implementation
