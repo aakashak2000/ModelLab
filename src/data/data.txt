@@ -1,0 +1,352 @@
+The following guide is more or less an essay on how I personally use
+`wiki.vim` for structuring and writing my notes. I take the liberty of writing
+in the first tense, as this is clearly a subjective matter. An initial version
+of this was posted as a comment in an issue thread [0] (note: the links are
+listed at the bottom). I recommend anyone interested to read the entire thread
+(although it is quite long!).
+
+I've structured the following guide in two main sections. The first section
+concerns how to keep a personal wiki or knowledge base. In the second,
+I explain how I keep my daily journal. But first, a quote that I think
+captures the most important concept in a single sentence (by @mgoral [1]):
+
+> I think that the most important thing is to not overthink things and just
+> keep writing stuff down.
+
+Executive summary ~
+- Speed is key - make sure you have a fast workflow:
+  - Use a keyboard shortcut in your desktop/window manager to open Vim/neovim
+    with the wiki index (e.g. <alt-n>).
+  - Use something like |:WikiPages| and `ripgrep` (with e.g.
+    `ctrlsf.vim` [2]) for searching.
+- Write short pages and use links between related pages.
+- Don't obsess about the wiki structure.
+
+A personal wiki ~
+People write things down. Take notes. Why? Because people, or at least most of
+us, don't remember things for too long. From my point of view, taking notes
+is a way to extend my memory. And writing the notes is itself a useful
+process, because it often helps both to learn and to remember things.
+
+I find the idea of keeping my notes linked and easily searchable in pure text
+to be extremely potent. With `wiki.vim`, I can very quickly locate relevant
+notes for a topic. I believe strongly that speed or efficiency is the key
+aspect of a good personal-knowledge system. However, before I continue, I want
+to stress that `wiki.vim` is just one such system. There are probably
+countless, and I encourage everyone to find a system that works for them. Some
+alternatives are listed under |wiki-intro-alternatives|.
+
+So, some context: My personal wiki consists per 2023-03-01 of 2728 pages with
+a total of 96969 lines (excluding my journal). I first started taking notes in
+2007, so this is perhaps 16 years' worth of writing. I use Syncthing [3] to
+keep my notes synchronized across my computers, phones, and tablets. I've
+previously also used Dropbox.
+
+Needless to say, it is important to be able to find relevant notes fast.
+I have a global Vim mapping `<leader>ow` to open a page search interface.
+I previously used |:WikiPages|, which works very well! Today, though, I use
+Telescope [4] with a personal function to list wiki files [5]. It usually
+takes no more than a couple of seconds from the moment I think of something
+until I have opened the relevant note. A key here is to use simple names for
+the pages. I prefer several short pages instead of one long, if possible.
+I also don't worry about using spaces in my wiki file names.
+
+Sometimes I search for things within pages. For this, I rely on `ripgrep` [6].
+I use `ctrlsf.vim` [2] (which uses `ripgrep` as a backend). I map this to
+`<leader>ff`. This makes it very easy and fast to search the wiki. And if my
+search has too many hits, I can either narrow it down by changing the search
+pattern, or I can search within the result buffer of `ctrlsf.vim`. This has
+generally not failed me in finding information I'm looking for. I don't spend
+a lot of time searching for things. If I know I've written about something,
+I always find it with `<leader>ow` and/or `<leader>ff`, and usually in
+a matter of seconds.
+
+How do I write my notes? I make sure to write down what I feel like at the
+moment. I then clean it up and rinse/repeat as something is developing. I add
+links to relevant external and internal pages/resources. I often add examples,
+for instance tools I discover or libraries I learn about.
+
+With time, I've started to adopt an unstructured approach where I avoid
+complicated structure and subdirectories. I try to use the proper names of
+things as the name of a page. The simple structure makes it easy to convert
+text to the correct links and it makes it easy to remember the relevant page
+names.
+
+I don't worry about having many pages. I don't worry about almost empty pages.
+I don't worry about keeping my pages in a hierarchy. I've found it can be
+useful to split information into separate pages, as it makes it easier to link
+things. I sometimes find the graph features useful, e.g. |wiki-graph-in|, but
+I don't use them much.
+
+However, sometimes I write down stuff that I don't know where to put. This is
+where I use my index (`index.wiki`). This file is where I put anything that
+does not currently have a home. I may also use it to link to pages that need
+attention. For example, if I were to notice that my wiki page about Topic X is
+outdated and/or needs some work, then I add a link to it from my index. With
+time, I work through the index (often slowly) and move content into more
+dedicated pages. For this workflow to work well, it is crucial that my index
+is extremely accessible. I therefore have a global keyboard shortcut on all my
+computers to open the index in neovim in new terminal. Specifically, I map
+<alt-n> to the shell command `urxvt -e nvim +WikiIndex`, where `urxvt` is
+a well-known terminal. This way, it takes less than a second from the moment
+I have a thought until I can start to add it to my `index.wiki` for later
+processing. The speed allows me to write down a thought immediately and then
+continue with the current work without being severely disrupted - this is what
+makes the concept so important.
+
+Although I do add a lot of text to my wiki, I've also realized that I should
+not add all data there. For instance, I've come to use Zotero [7] for managing
+my literature database. This is also why there is now some support for Zotero
+within `wiki.vim` (see |wiki-link-cite|).
+
+For some topics, I may write a wiki page about stuff where I have links to
+data files in which I can append new data and to scripts I can run to
+visualize the data. Thus, I don't keep everything in the wiki, instead, I may
+write the "metadata" and general overview in the wiki, and then keep the real
+data and relevant tools as a "third party".
+
+Daily journal ~
+
+I keep a daily journal. I use |:WikiJournal| to open today's page. For each
+day, I tend to write a short memo on what I did that day. I've found it
+convenient to format this as lists for each main topic/project/activity. This
+makes it easier to write weekly and monthly summaries.
+
+I use |WikiJournalToWeek| and |WikiJournalToMonth| commands to create the
+summaries. I write them in retrospective. I use another plugin of mine,
+lists.vim [8], which has a command `ListsUniq` that I use to quickly write
+and combine these summaries.
+
+I reserve my journal for work-related activities. This includes minutes of
+meetings or notes from events and courses. However, I don't use my journal to
+log mundane tasks or other temporal activities. Instead, I keep a log of such
+things in a related wiki page. For instance, I have a wiki page for my house
+where I keep a log of repairs and similar.
+
+I usually plan my work week each Monday by manually writing and maintaining
+TODOs for each day in the week. I also have an entry for the next Monday where
+I put TODOs that are not for the present week.
+
+This way, my journal serves as a task tracker where I write quick comments
+about tasks when I work on them. I generally avoid adding "real" information
+content to my journal. Instead, I create links to my main wiki and put
+valuable content there. This way, if I work on something, then work on it
+again after a long break, the content is readily available when I get back to
+it. In some cases, I do link from my wiki to a specific journal entry - for
+instance when I refer to meeting notes.
+
+If I'm curious about what I did at a particular date, I use calendar.vim [9]
+to find the date and open the corresponding entry (see [10, 11] for my related
+Vim configuration). I'm generally never interested in any form of journal
+index (|WikiJournalIndex| exists because some users find it useful, though).
+The calendar.vim interface is more or less everything I need in that regard.
+
+Similar to my personal wiki index, I use a global shortcut to open today's
+journal page: <alt-j>. This is mapped to `urxvt -e nvim +WikiJournal`. I find
+it very useful as it makes it very easy to quickly open my daily journal if
+I want to make a note or read about something I did earlier.
+
+Over time, the journal entries have a great value in that it is easy to go
+back and see what I did at a particular point in time. The summaries make it
+easy to get a larger overview. I don't use them often, but when I do, I'm glad
+I have them. I also find the process of writing all of these things useful as
+it makes me think about what I'm doing - both the planning part and the
+retrospective part.
+
+Closing words ~
+
+Finally, I again stress that these are my personal experiences and opinions,
+and I very much acknowledge that what works for me probably does not work for
+everyone else.
+
+References ~
+
+[0]:  https://github.com/lervag/wiki.vim/issues/101#issuecomment-709571804
+[1]:  https://github.com/lervag/wiki.vim/issues/101#issuecomment-718284921
+[2]:  https://github.com/dyng/ctrlsf.vim
+[3]:  https://syncthing.net/
+[4]:  https://github.com/nvim-telescope/telescope.nvim
+[5]:  https://github.com/lervag/dotnvim/blob/fddbc2def970cb4bd61894d60c0e7e266408f2f8/lua/lervag/util/ts.lua#L40-L71
+[6]:  https://github.com/BurntSushi/ripgrep
+[7]:  https://www.zotero.org/
+[8]:  https://github.com/lervag/lists.vim
+[9]:  https://github.com/itchyny/calendar.vim
+[10]: https://github.com/lervag/dotnvim/blob/fddbc2def970cb4bd61894d60c0e7e266408f2f8/lua/lervag/init/packages.lua#L1335-L1347
+[11]: https://github.com/lervag/dotnvim/blob/main/ftplugin/calendar.lua
+
+------------------------------------------------------------------------------
+OTHER USEFUL PLUGINS                                       *wiki-intro-plugins*
+
+Some users may find that `wiki.vim` does not provide all of the features they
+want for taking notes. Users who are used to Vimwiki will probably miss things
+like features to interact with lists and check lists. This is a natural
+consequence of the idea to "do one thing and do it well"; the core feature of
+`wiki.vim` is to handle links in various formats and shapes. It has additional
+wiki features and some fringe features, but these are not as important.
+
+The following is a list of plugins that one may want to use alongside
+`wiki.vim` for a more "complete" experience. If a user reads this list and
+things that it is lacking, they are very welcome to suggest additions!
+
+Markdown ~
+Many users prefer to use `wiki.vim` with the Markdown filetype. Vim and neovim
+ship with a decent Markdown plugin by default, but there are also popular and
+well maintained alternatives with more features. Here are some popular
+options:
+
+- https://github.com/tpope/vim-markdown (this is shipped with Vim and neovim)
+- https://github.com/preservim/vim-markdown
+- https://github.com/SidOfc/mkdx/
+- https://github.com/vim-pandoc/vim-pandoc-syntax
+- https://github.com/MeanderingProgrammer/render-markdown.nvim
+
+wiki-ft.vim ~
+https://github.com/lervag/wiki-ft.vim
+`wiki-ft.vim` is a simple filetype plugin for `.wiki` files that provides
+syntax highlighting and folding. Recommended settings if you want to use
+this: >vim
+
+  let g:wiki_filetypes = ['wiki']
+
+lists.vim ~
+https://github.com/lervag/lists.vim
+This is a Vim plugin to manage text based lists and check lists.
+
+Tables ~
+There are a lot of plugins to work with tables. These are both excellent:
+- https://github.com/dhruvasagar/vim-table-mode
+- https://github.com/junegunn/vim-easy-align
+
+calendar.vim ~
+https://github.com/itchyny/calendar.vim
+A plugin that provides a neat calendar feature. It can be integrated with
+`wiki.vim` with e.g. this to map `<cr>` to open the selected date in the
+journal or diary in `wiki.vim`: >vim
+
+  augroup init_calendar
+    autocmd!
+    autocmd FileType calendar
+          \ nnoremap <silent><buffer> <cr>
+          \ :<c-u>call wiki#journal#open()<cr>
+  augroup END
+
+link.vim ~
+https://github.com/qadzek/link.vim
+A plugin for managing long URLs. It converts inline Markdown links to
+reference-style links, to keep them out of your way.
+
+------------------------------------------------------------------------------
+ALTERNATIVES                                          *wiki-intro-alternatives*
+
+There exist a lot of alternatives to `wiki.vim`. Within the Vim ecosystem,
+the main alternative is Vimwiki. But there are also a lot of other
+alternatives. The following list is probably not very comprehensive. It may be
+useful if only as an inspiration to read about alternative approaches. The
+descriptions are mostly a copy of the initial text from the relevant home
+pages.
+
+Vimwiki ~
+https://github.com/vimwiki/vimwiki
+Type: Plugin; Vim
+Vimwiki is a personal wiki system for Vim. It relies on its own filetype,
+although recent versions also support more traditional Markdown formats.
+
+Fun fact: `wiki.vim` was initially based on Vimwiki, but it is written from
+scratch and is based on the philosophy of "do one thing and do it well".
+
+Waikiki ~
+https://github.com/fcpg/vim-waikiki
+Type: Plugin; Vim
+Waikiki is a "fisherman's wiki": it provides a minimal set of features to
+navigate pages and create links and pages.
+
+Foam ~
+https://foambubble.github.io/foam/
+Type: Plugin; Visual Studio Code
+Foam is a personal knowledge management and sharing system inspired by Roam
+Research, built on Visual Studio Code and GitHub.
+
+Roam Research ~
+https://roamresearch.com/
+Type: Software
+A note-taking tool for networked thought. As easy to use as a document. As
+powerful as a graph database. Roam helps you organize your research for the
+long haul.
+
+Emacs Org Mode ~
+https://orgmode.org/
+Type: Plugin; Emacs
+A GNU Emacs major mode for convenient plain text markup — and much more. Org
+mode is for keeping notes, maintaining to-do lists, planning projects,
+authoring documents, computational notebooks, literate programming and more
+— in a fast and effective plain text system. Several ports to Vim exist to
+varying degrees of completion.
+
+Obsidian.md ~
+https://obsidian.md/
+Type: Software
+"A second brain, for you, forever." Obsidian is a powerful knowledge base on
+top of a local folder of plain text Markdown files.
+
+==============================================================================
+LINKS                                                               *wiki-link*
+
+Links are the most essential concept of a wiki. As such, it is important to
+understand them. Simply stated, a link is a "structure" that consists of a URL
+and a possibly empty description. URL is short for Uniform Resource Locator
+and is an address to a resource.
+
+The URL concept is specified in RFC 3986 "Uniform Resource Identifier (URI):
+Generic Syntax" (https://datatracker.ietf.org/doc/html/rfc3986). A typical URL
+looks like this: `scheme:target-address`. Some examples of URLs:
+
+- `http://www.example.com`
+- `wiki:index`
+- `journal:2013-04-05`
+- `doi:10.1002%2Fandp.19053220607`
+
+It is easy to confuse the concept of the link with that of the URL itself, but
+these are two distinct concepts. A URL is by definition a link, but a link may
+be "more" than just a URL. Some examples of valid links recognized by
+`wiki.vim`: >
+
+  http://www.example.com                     link is just a URL
+  <wiki:a wiki link with spaces>             <…> allows URLs with spaces
+  [[http://www.example.com]]                 wiki link without description
+  [[http://www.example.com|a wiki link]]     wiki link with description
+  [a markdown link](http://www.example.com)  markdown link with description
+
+The mappings that act on links are listed in |wiki-mappings-default|. The most
+notable default mappings are:
+- A link may be followed with `<cr>`.
+- `<cr>` used on normal text (not on a link) will transform the text into
+  a link of the type specified by |g:wiki_link_creation|. This also works in
+  visual mode.
+- Similarly, `gl` may be used to turn operated text into a link.
+- One may use `<bs>` to navigate back after following a link.
+- `<leader>wf` can be used to transform a link between different types (see
+  |g:wiki_link_transforms|).
+
+`wiki.vim` is very customizable with respect to how it should behave for
+a given link. Consider the following example: >
+
+  [[scheme:target-address|describing text goes here]]
+
+    \______ URL ________/ \_____ description _____/
+
+The `scheme:` part of the URL is important. It is "optional", but only in the
+sense that many link types have a default "implied" scheme given by
+|g:wiki_link_default_schemes|. The URL scheme is used to select the `resolver`
+and `handler` functions used by `wiki.vim` to follow a link. Users can
+override the default functions by use of the |g:wiki_link_schemes| option.
+This also allows to easily implement custom schemes. See the section
+|wiki-advanced-configuration| for examples of how one can do this.
+
+So, in summary: When a user presses `<cr>` to follow a link, `wiki.vim` will
+do these things:
+- The link is first parsed to detect the URL and possibly prepend a default
+  scheme.
+- The link URL is then passed to an optional `resolver` function that "parses"
+  the raw link.
+- The possibly resolved URL is then passed to a `handler` that opens/follows
+  the link.

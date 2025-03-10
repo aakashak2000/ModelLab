@@ -1,9 +1,9 @@
 import torch
 import torch.nn as nn
 
-class BasicRNN(nn.Module):
+class RNN(nn.Module):
     def __init__(self, vocab_size, embedding_dim, hidden_dim, num_layers=1, dropout=0.0):
-        super(BasicRNN, self).__init__()
+        super(RNN, self).__init__()
 
         self.vocab_size = vocab_size
         self.embedding_dim = embedding_dim
@@ -25,7 +25,7 @@ class BasicRNN(nn.Module):
     def forward(self, x, hidden=None):
         batch_size = x.size(0)
         if hidden is None:
-            hidden = torch.zeros(self.num_layers, batch_size, self.hidden_dim, x.device)
+            hidden = torch.zeros(self.num_layers, batch_size, self.hidden_dim, device=x.device)
         
         embedded = self.embeddings(x)
         rnn_out, hidden = self.rnn(embedded, hidden)
@@ -36,20 +36,19 @@ class BasicRNN(nn.Module):
     def generate(self, initial_tokens, max_length, temperature=1.0, device='cpu'):
         self.to(device)
         self.eval()
-        current_tokens = torch.tensor([initial_tokens], dtype=torch.long, device=device)
-        generated = initial_tokens.copy()
 
+        current_tokens = torch.tensor([initial_tokens], dtype=torch.long, device=device)
+        generated = initial_tokens.copy() if isinstance(initial_tokens, list) else initial_tokens.tolist()
         hidden = None
 
         with torch.no_grad():
             for _ in range(max_length):
-                
+
                 output, hidden = self(current_tokens, hidden)
                 logits = output[:, -1, :] / temperature
-                probabilities = torch.softmax(logits, dim=-1)
-                next_token = torch.multinomial(probabilities, 1).item()
+                probs = torch.softmax(logits, dim=-1)
+                next_token = torch.multinomial(probs, 1).item()
                 generated.append(next_token)
                 current_tokens = torch.tensor([[next_token]], dtype=torch.long, device=device)
-        
+
         return generated
-    
