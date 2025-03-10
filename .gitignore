@@ -7,7 +7,9 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+.DS_Store
 .Python
+touch
 build/
 develop-eggs/
 dist/
