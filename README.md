@@ -5,13 +5,13 @@
 - **src/**: Main source code
   - **architectures/**: Neural network architectures
     - **rnn/**: RNN implementation
-    - **lstm/**: LSTM implementation
-    - **gru/**: GRU implementation
-    - **seq2seq/**: Sequence-to-sequence implementation
-    - **attention/**: Attention mechanism implementation
-    - **transformer/**: Transformer implementation
-    - **miniGPT/**: GPT-like model implementation
-  - **models/**: Model training and interface
+    - **lstm/**: LSTM implementation [WIP]
+    - **gru/**: GRU implementation [WIP]
+    - **seq2seq/**: Sequence-to-sequence implementation [WIP]
+    - **attention/**: Attention mechanism implementation [WIP]
+    - **transformer/**: Transformer implementation [WIP]
+    - **miniGPT/**: GPT-like model implementation [WIP]
+  - **models/**: Model training and interface 
   - **data/**: Data loading and processing
   - **utils/**: Utility functions
   - **scripts/**: Training and generation scripts
