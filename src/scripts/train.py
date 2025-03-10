@@ -9,6 +9,16 @@ import torch.optim as optim
 import numpy as np
 from pathlib import Path
 
+# Check if MPS is available
+if torch.backends.mps.is_available():
+    device = torch.device("mps")
+    print("Using MPS acceleration")
+else:
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"MPS not available, using {device}")
+
+
+
 project_root = Path(__file__).resolve().parent.parent.parent
 sys.path.append(str(project_root))
 
@@ -76,14 +86,37 @@ class TextData:
         torch.save(vocab_info, vocab_path)
         print(f"Vocabulary Saved to {vocab_path}")
 
-def train(model, data, learning_rate=0.001, num_epochs=10, eval_interval=500, save_path=None, vocab_path=None, device='cpu'):
-
+def train(model, data, 
+          learning_rate=0.001, 
+          num_epochs=10, 
+          eval_interval=500, 
+          save_path=None, 
+          vocab_path=None, 
+          device='cpu', 
+          patience=5, 
+          weight_decay=1e-4, 
+          lr_scheduler_type='reduce_on_plateau'):
+    
+    print(f"Current {device=}")
     model.to(device)
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+
+    if lr_scheduler_type == 'reduce_on_plateau':
+        scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=3,verbose=True, min_lr=1e-6)
+    elif lr_scheduler_type == 'cosine':
+        scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=num_epochs, eta_min=1e-6)
+    elif lr_scheduler_type == 'step':
+        scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.9)
+    else:
+        scheduler = None
+
     criterion = nn.CrossEntropyLoss()
 
-    history = {'train_loss': [], 'val_loss': []}
+    history = {'train_loss': [], 'val_loss': [], 'learning_rates': []}
     best_val_loss = float("inf")
+
+    patience_counter = 0
+    early_stop = False
 
     tokens_per_epoch = len(data.train_data)
     total_iters = num_epochs * (tokens_per_epoch // (data.batch_size * data.seq_length))
@@ -94,6 +127,10 @@ def train(model, data, learning_rate=0.001, num_epochs=10, eval_interval=500, sa
     iter_num = 0
     start_time = time.time()
     for epoch in range(num_epochs):
+        if early_stop:
+            print(f"Early stopping triggered after {epoch} epochs")
+            break
+
         batches_per_epoch = max(1, tokens_per_epoch // (tokens_per_epoch // (data.batch_size * data.seq_length)))
         for _ in range(batches_per_epoch):
             x_batch, y_batch = data.get_batch('train')
@@ -109,6 +146,7 @@ def train(model, data, learning_rate=0.001, num_epochs=10, eval_interval=500, sa
             optimizer.step()
 
             history['train_loss'].append(loss.item())
+            history['learning_rates'].append(optimizer.param_groups[0]['lr'])
             
             if iter_num % eval_interval == 0:
                 model.eval()
@@ -127,6 +165,9 @@ def train(model, data, learning_rate=0.001, num_epochs=10, eval_interval=500, sa
                     train_perplexity = torch.exp(torch.tensor(loss.item())).item()
                     val_perplexity = torch.exp(torch.tensor(val_loss.item())).item()
                     elapsed = time.time() - start_time
+
+                    if lr_scheduler_type == 'reduce_on_plateau':
+                        scheduler.step(val_loss)
 
                     print(f"Epoch {epoch+1}/{num_epochs}, Iter {iter_num}/{total_iters}, \n" 
                           f"Train Loss: {loss.item():.4f}, Train Perplexity: {train_perplexity:.2f}, \n"
@@ -156,8 +197,43 @@ def train(model, data, learning_rate=0.001, num_epochs=10, eval_interval=500, sa
                         }, save_path)
                         if vocab_path:
                             data.save_vocab(vocab_path)
+                        patience_counter = 0
+                    else:
+                        patience_counter += 1
+                        if patience_counter >= patience:
+                            print(f"No improvement for {patience} evaluations. Early stopping.")
+                            early_stop = True
+                            break
                 model.train()
             iter_num += 1
+
+        if scheduler is not None and lr_scheduler_type != 'reduce_on_plateau':
+            scheduler.step()
+    
+    final_epoch_val_loss = history['val_loss'][-1] if history['val_loss'] else float('inf')
+    if not early_stop and final_epoch_val_loss < best_val_loss and save_path:
+        print(f"Saving final model with validation loss: {final_epoch_val_loss:.4f}")
+        torch.save({
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            'val_loss': final_epoch_val_loss,
+            'epoch': num_epochs - 1,
+            'iter': iter_num - 1,
+            'model_config': {
+                'vocab_size': model.vocab_size,
+                'embedding_dim': model.embedding_dim,
+                'hidden_dim': model.hidden_dim,
+                'num_layers': model.num_layers
+            }
+        }, save_path)
+        
+        if vocab_path:
+            data.save_vocab(vocab_path)
+    
+
+    print(f"Training completed. Best validation loss: {best_val_loss:.4f}")
+    return history
+
                     
 
 def main():

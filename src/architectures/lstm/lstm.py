@@ -24,9 +24,9 @@ class LSTM(nn.Module):
 
     def forward(self, x, hidden=False):
         batch_size = x.size(0)
-        if hidden is None:
-            h_0 = torch.zeros(self.num_layers, batch_size, self.hidden_size, device=x.device)
-            c_0 = torch.zeros(self.num_layers, batch_size, self.hidden_size, device=x.device)
+        if hidden is None or not isinstance(hidden, tuple):
+            h_0 = torch.zeros(self.num_layers, batch_size, self.hidden_dim, device=x.device)
+            c_0 = torch.zeros(self.num_layers, batch_size, self.hidden_dim, device=x.device)
             hidden = (h_0, c_0)
         
         embedded = self.embeddings(x)
@@ -45,12 +45,14 @@ class LSTM(nn.Module):
         hidden = None
 
         with torch.no_grad():
+            _, hidden = self(current_tokens, hidden)
             for _ in range(max_length):
 
-                output, hidden = self(current_tokens, hidden)
+                current_token = torch.tensor([[generated[-1]]], dtype=torch.long, device=device)
+                output, hidden = self(current_token, hidden)
                 logits = output[:, -1, :] / temperature
                 probs = torch.softmax(logits, dim=-1)
-                next_token = torch.multinomial(probs, 1).items()
+                next_token = torch.multinomial(probs, 1).item()
                 generated.append(next_token)
                 current_tokens = torch.tensor([next_token], dtype=torch.long, device=device)
 
