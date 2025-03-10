@@ -1,16 +1,16 @@
-# Text Generation Models
+# Evolution of Text Generation Models
 
 ## Project Structure
 
 - **src/**: Main source code
   - **architectures/**: Neural network architectures
-    - **rnn/**: RNN implementation
-    - **lstm/**: LSTM implementation [WIP]
-    - **gru/**: GRU implementation [WIP]
-    - **seq2seq/**: Sequence-to-sequence implementation [WIP]
-    - **attention/**: Attention mechanism implementation [WIP]
-    - **transformer/**: Transformer implementation [WIP]
-    - **miniGPT/**: GPT-like model implementation [WIP]
+    - **rnn/**: RNN Architecture
+    - **lstm/**: LSTM Architecture
+    - **gru/**: GRU Architecture [WIP]
+    - **seq2seq/**: Sequence-to-sequence Architecture [WIP]
+    - **attention/**: Attention mechanism Architecture [WIP]
+    - **transformer/**: Transformer Architecture [WIP]
+    - **miniGPT/**: GPT-like model Architecture [WIP]
   - **models/**: Model training and interface 
   - **data/**: Data loading and processing
   - **utils/**: Utility functions
