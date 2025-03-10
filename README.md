@@ -10,7 +10,7 @@
     - **seq2seq/**: Sequence-to-sequence implementation
     - **attention/**: Attention mechanism implementation
     - **transformer/**: Transformer implementation
-    - **gpt_like/**: GPT-like model implementation
+    - **miniGPT/**: GPT-like model implementation
   - **models/**: Model training and interface
   - **data/**: Data loading and processing
   - **utils/**: Utility functions
@@ -18,7 +18,6 @@
 
 - **notebooks/**: Jupyter notebooks for exploration and showcase
 - **tests/**: Unit tests
-- **models/weights/**: Saved model weights
 - **data/**: Raw and processed datasets
 - **results/**: Generated samples and model metrics
 
