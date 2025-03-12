@@ -6,10 +6,10 @@
   <img src="https://img.shields.io/badge/NLP-8A2BE2?style=for-the-badge&logo=nlp&logoColor=white" alt="NLP" />
   <img src="https://img.shields.io/badge/Text_Generation-FF6F61?style=for-the-badge&logo=&logoColor=white" alt="Text Generation" />
   <br />
-  <img src="https://img.shields.io/github/license/yourusername/modellab" alt="License" />
-  <img src="https://img.shields.io/github/stars/yourusername/modellab" alt="Stars" />
-  <img src="https://img.shields.io/github/forks/yourusername/modellab" alt="Forks" />
-  <img src="https://img.shields.io/github/issues/yourusername/modellab" alt="Issues" />
+  <img src="https://img.shields.io/github/license/aakashak2000/modellab" alt="License" />
+  <img src="https://img.shields.io/github/stars/aakashak2000/modellab" alt="Stars" />
+  <img src="https://img.shields.io/github/forks/aakashak2000/modellab" alt="Forks" />
+  <img src="https://img.shields.io/github/issues/aakashak2000/modellab" alt="Issues" />
 </div>
 
 <div align="center">
@@ -26,7 +26,7 @@ ModelLab is an educational and research project that offers a hands-on journey t
 The project serves as both a learning resource for those new to NLP and a research toolkit for experimenting with different model architectures.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/yourusername/modellab/main/assets/architecture_comparison.png" alt="Architecture Comparison" width="80%" />
+  <img src="https://raw.githubusercontent.com/aakashak2000/modellab/main/assets/architecture_comparison.png" alt="Architecture Comparison" width="80%" />
 </div>
 
 ## 🌟 Key Features
