@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/badge/NLP-8A2BE2?style=for-the-badge&logo=nlp&logoColor=white" alt="NLP" />
   <img src="https://img.shields.io/badge/Text_Generation-FF6F61?style=for-the-badge&logo=&logoColor=white" alt="Text Generation" />
   <br />
-  <img src="https://img.shields.io/github/license/aakashak2000/modellab" alt="License" />
+  <img src="https://img.shields.io/github/license/aakashak2000/modellab?v=1" alt="License" />
   <img src="https://img.shields.io/github/stars/aakashak2000/modellab" alt="Stars" />
   <img src="https://img.shields.io/github/forks/aakashak2000/modellab" alt="Forks" />
   <img src="https://img.shields.io/github/issues/aakashak2000/modellab" alt="Issues" />
