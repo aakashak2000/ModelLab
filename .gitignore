@@ -78,6 +78,7 @@ docs/_build/
 target/
 
 # Jupyter Notebook
+pytorch_basics.ipynb
 .ipynb_checkpoints
 
 # IPython
