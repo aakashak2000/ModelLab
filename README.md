@@ -25,10 +25,6 @@ ModelLab is an educational and research project that offers a hands-on journey t
 
 The project serves as both a learning resource for those new to NLP and a research toolkit for experimenting with different model architectures.
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/aakashak2000/modellab/main/assets/architecture_comparison.png" alt="Architecture Comparison" width="80%" />
-</div>
-
 ## 🌟 Key Features
 
 - **Multiple Architectures**: Clean implementations of RNN and LSTM models with unified interfaces
