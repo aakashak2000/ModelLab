@@ -14,7 +14,7 @@
 
 <div align="center">
   <h3>A comprehensive toolkit for understanding and building text generation models</h3>
-  <p>From RNNs to LSTMs, explore the evolution of neural architectures for text generation</p>
+  <p>From RNNs to GPTs, explore the evolution of neural architectures for text generation</p>
 </div>
 
 ---
