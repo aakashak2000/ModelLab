@@ -253,7 +253,10 @@ def main():
         else:
             # For subsequent samples or if no seed provided, use a simple default
             # In a real application, you might extract random seeds from your training data
-            seed_text = "The " if char_level else "The"
+            if len(all_samples) > 0:
+                seed_text = ' '.join(all_samples[-1]['generated'].split()[-10:])
+            else:
+                seed_text = "The " if char_level else "The"
         
         print(f"\nSample {i+1}:")
         print(f"Seed: '{seed_text}'")
