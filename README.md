@@ -1,7 +1,7 @@
 # ModelLab: Evolution of Text Generation Models
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/aakashak2000/aakashak2000/main/modellab_logo.svg" alt="ModelLab Logo" width="300"/>
+  <img src="https://raw.githubusercontent.com/aakashak2000/aakashak2000/main/modellab_logo.png" alt="ModelLab Logo" width="300"/>
 </p>
 
 ModelLab is a comprehensive project exploring the evolution of neural text generation architectures, from simple RNNs to complex transformer-based models. This repository provides implementations, training pipelines, and analysis tools to understand how different architectures approach the challenge of text generation.
