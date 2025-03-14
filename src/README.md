@@ -1,208 +1,160 @@
-# Source Code Documentation
+# ModelLab Source Code
 
-This directory contains the core implementation of the "Evolution of Text Generation Models" project. The codebase demonstrates the progression of neural text generation models from simple RNNs to more complex architectures like Transformers and GPT-like models.
+This directory contains the core implementation of the ModelLab project, organized to provide a clear structure for different components of the text generation models.
 
 ## Directory Structure
 
-```
-src/
-├── architectures/       # Neural network model architectures
-│   ├── rnn/             # Recurrent Neural Networks
-│   ├── lstm/            # Long Short-Term Memory Networks
-│   ├── gru/             # Gated Recurrent Units
-│   ├── seq2seq/         # Sequence-to-Sequence models
-│   ├── attention/       # Attention mechanisms
-│   ├── transformer/     # Transformer architecture
-│   └── miniGPT/         # GPT-style model implementation
-├── data/                # Data loading and processing utilities
-├── models/              # Model training interfaces and saved models
-├── scripts/             # Training and generation scripts
-└── utils/               # Utility functions and helper methods
-```
+### 🏛️ `architectures/`
+Neural network architectures for text generation, arranged by model type:
 
-## Architecture Implementation
+- **`rnn/`**: Recurrent Neural Networks
+  - `rnn.py`: PyTorch implementation using nn.RNN
+  - `rnn_from_scratch.py`: Custom implementation (WIP)
 
-Each architecture subfolder contains at least two implementations:
-- `{model_name}.py`: PyTorch implementation using built-in modules
-- `{model_name}_from_scratch.py`: Implementation from first principles to demonstrate core concepts
+- **`lstm/`**: Long Short-Term Memory Networks
+  - `lstm.py`: PyTorch implementation using nn.LSTM
+  - `lstm_from_scratch.py`: Custom implementation (WIP)
 
-### Current Implementation Status
+- **`gru/`**: Gated Recurrent Units
+  - `gru.py`: PyTorch implementation ✓
+  - `gru_from_scratch.py`: Custom implementation (WIP)
 
-| Architecture | Status | Notes |
-|--------------|--------|-------|
-| RNN          | ✅ Complete | Basic recurrent neural network implementation |
-| LSTM         | ✅ Complete | Long Short-Term Memory network |
-| GRU          | 🚧 In Progress | Gated Recurrent Unit implementation |
-| Seq2Seq      | 🚧 In Progress | Sequence-to-sequence model |
-| Attention    | 🚧 In Progress | Attention mechanism implementation |
-| Transformer  | 🚧 In Progress | Full transformer architecture |
-| miniGPT      | 🚧 In Progress | Smaller GPT-style model |
+- **`seq2seq/`**: Sequence-to-Sequence Models
+  - `seq2seq.py`: Encoder-decoder architecture (encoder-decoder blocks implemented)
+  - `seq2seq_from_scratch.py`: Custom implementation (WIP)
 
-## Key Components
+- **`attention/`**: Attention Mechanisms
+  - `attention.py`: Attention-enhanced models (WIP)
+  - `attention_from_scratch.py`: Custom implementation (WIP)
 
-### Data Module (`data/`)
+- **`transformer/`**: Transformer Architecture
+  - `transformer.py`: Implementation based on "Attention is All You Need" (WIP)
+  - `transformer_from_scratch.py`: Custom implementation (WIP)
 
-Handles data processing for text generation tasks, including:
-- Text loading and preprocessing
-- Tokenization (character and word-level)
-- Batching and sequence preparation
+- **`miniGPT/`**: GPT-like Models
+  - `miniGPT.py`: Lightweight GPT implementation (WIP)
+  - `miniGPT_from_scratch.py`: Custom implementation (WIP)
+
+### 📊 `models/`
+Model training interfaces and saved model checkpoints:
+- Training configuration
+- Model serialization/deserialization
+- Common training utilities
+
+### 📁 `data/`
+Data processing utilities:
+- Text data loading
+- Tokenization and preprocessing
 - Vocabulary management
+- Dataset creation
 
-### Models Module (`models/`)
+### 🔧 `utils/`
+Common utility functions:
+- Logging
+- Metrics calculation
+- Visualization helpers
+- Text processing tools
 
-Contains interfaces for model training and saved model artifacts:
-- Model configuration specifications
-- Trained model checkpoints
-- Vocabulary files
+### 📜 `scripts/`
+Executable scripts for training and generation:
+- `train.py`: Universal training script for all model architectures
+- `generate.py`: Text generation using trained models
 
-### Scripts (`scripts/`)
+## Implementation Guidelines
 
-Provides command-line utilities for model training and text generation:
+When implementing or extending model architectures, follow these guidelines:
 
-#### Training Script (`train.py`)
-
-```bash
-python src/scripts/train.py --model lstm --data-file data/your_text.txt --num-epochs 10
-```
-
-Key parameters:
-- `--model`: Architecture to use (rnn, lstm, gru, etc.)
-- `--data-file`: Text file for training
-- `--char-level`: Use character-level tokenization (default: True)
-- `--seq-length`: Sequence length for training (default: 100)
-- `--batch-size`: Batch size (default: 32)
-- `--learning-rate`: Learning rate (default: 0.001)
-- `--num-epochs`: Training epochs (default: 10)
-- `--embedding-dim`: Dimension of embeddings (default: 128)
-- `--hidden-dim`: Dimension of hidden state (default: 256)
-- `--num-layers`: Number of layers (default: 2)
-- `--dropout`: Dropout probability (default: 0.2)
-
-#### Generation Script (`generate.py`)
-
-```bash
-python src/scripts/generate.py --model lstm --model-path src/models/lstm_best.pt --seed-text "Once upon a time"
-```
-
-Key parameters:
-- `--model`: Architecture to use
-- `--model-path`: Path to trained model file
-- `--seed-text`: Starting text for generation
-- `--num-samples`: Number of samples to generate (default: 5)
-- `--max-length`: Maximum length of generated text (default: 500)
-- `--temperature`: Sampling temperature (default: 0.8)
-
-### Utilities (`utils/`)
-
-Contains helper functions for:
-- Logging and visualization
-- Performance metrics
-- Model evaluation tools
-- Text processing utilities
-
-## Model Details
-
-### RNN Implementation
-
-The basic RNN implementation demonstrates:
-- Embedding layer for token representation
-- Recurrent layer for sequential processing
-- Linear output layer for next token prediction
-- Temperature-based sampling for text generation
-
-### LSTM Implementation
-
-The LSTM model extends the RNN with:
-- Input, forget, and output gates
-- Cell state for long-term memory
-- Advanced text generation capabilities
-- Improved handling of long-range dependencies
+1. **Interface Consistency**: All model classes should expose the same interface with `forward()` and `generate()` methods
+2. **Documentation**: Include docstrings explaining the architecture, parameters, and usage
+3. **Modular Design**: Implement complex models as composition of simpler components
+4. **Code Reuse**: Leverage shared components in utils/ rather than duplicating functionality
 
 ## Usage Examples
 
-### Training a New Model
+### Training an LSTM Model
 
 ```python
 from src.architectures.lstm.lstm import LSTM
-from src.scripts.train import TextData, train
+from src.data.text_dataset import TextDataset
+import torch
 
-# Load and prepare data
-data = TextData(
-    file_path="data/your_text.txt",
-    seq_length=100,
-    batch_size=32,
-    char_level=True
-)
+# Prepare data
+dataset = TextDataset("path/to/data.txt", char_level=True)
+data_loader = dataset.get_loader(batch_size=32, seq_length=100)
 
 # Create model
 model = LSTM(
-    vocab_size=data.vocab_size,
+    vocab_size=dataset.vocab_size,
     embedding_dim=128,
     hidden_dim=256,
     num_layers=2,
     dropout=0.2
 )
 
-# Train the model
-history = train(
-    model=model,
-    data=data,
-    learning_rate=0.001,
-    num_epochs=10,
-    save_path="src/models/lstm_custom.pt"
-)
+# Training loop (simplified)
+optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+criterion = torch.nn.CrossEntropyLoss()
+
+for x_batch, y_batch in data_loader:
+    output, _ = model(x_batch)
+    loss = criterion(output.view(-1, output.size(-1)), y_batch.view(-1))
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
 ```
 
 ### Generating Text with a Trained Model
 
 ```python
-import torch
 from src.architectures.lstm.lstm import LSTM
-from src.scripts.generate import generate_text, load_vocab
+import torch
 
-# Load vocabulary
-vocab_info = load_vocab("src/models/lstm_vocab.pt")
-char_to_idx = vocab_info['char_to_idx']
-idx_to_char = vocab_info['idx_to_char']
-
-# Load model
-checkpoint = torch.load("src/models/lstm_best.pt")
-model_config = checkpoint['model_config']
-
-model = LSTM(
-    vocab_size=model_config['vocab_size'],
-    embedding_dim=model_config['embedding_dim'],
-    hidden_dim=model_config['hidden_dim'],
-    num_layers=model_config['num_layers']
-)
-model.load_state_dict(checkpoint['model_state_dict'])
+# Load trained model
+model = LSTM(vocab_size=128, embedding_dim=256, hidden_dim=512, num_layers=2)
+checkpoint = torch.load("path/to/model.pt")
+model.load_state_dict(checkpoint["model_state_dict"])
 
 # Generate text
-generated_text = generate_text(
-    model=model,
-    seed_text="The quick brown fox",
-    char_to_idx=char_to_idx,
-    idx_to_char=idx_to_char,
-    max_length=500,
+seed_text = "Once upon a time"
+seed_indices = [char_to_idx[c] for c in seed_text]  # Convert to indices
+generated = model.generate(
+    initial_tokens=seed_indices,
+    max_length=200,
     temperature=0.8
 )
+
+# Convert indices back to text
+generated_text = ''.join([idx_to_char[idx] for idx in generated])
 print(generated_text)
 ```
 
-## Contributing
+## Development Status
 
-When adding new architectures:
-1. Create a new folder in `architectures/` with your model name
-2. Implement both standard and from-scratch versions
-3. Ensure the model class has:
-   - Compatible initialization parameters with other models
-   - `forward()` method returning outputs and hidden states
-   - `generate()` method for text generation
+| Architecture | PyTorch Implementation | From-Scratch Implementation | Status |
+|--------------|:----------------------:|:---------------------------:|:------:|
+| RNN          | ✅                     | ⏳                          | Active |
+| LSTM         | ✅                     | ⏳                          | Active |
+| GRU          | ✅                     | ⏳                          | Active |
+| Seq2Seq      | 🔄                     | ⏳                          | In Progress |
+| Attention    | ⏳                     | ⏳                          | Planned |
+| Transformer  | ⏳                     | ⏳                          | Planned |
+| MiniGPT      | ⏳                     | ⏳                          | Planned |
 
-## Future Development
+Legend:
+- ✅ Complete
+- 🔄 Partially Implemented
+- ⏳ Planned
 
-Planned enhancements:
-- Complete implementation of advanced architectures (Transformer, miniGPT)
-- Add fine-tuning capabilities for pre-trained models
-- Implement beam search and other advanced decoding strategies
-- Add model evaluation metrics beyond perplexity
+## Implementation Roadmap
+
+1. **Current Phase**: Implement all architectures using PyTorch built-in modules
+   - RNN, LSTM, GRU completed
+   - Seq2seq encoder-decoder blocks implemented
+   - Working on completing Seq2seq implementation
+
+2. **Next Phase**: Implement all architectures from scratch using NumPy
+   - Will start with RNN_from_scratch and progress through all models
+   
+3. **Final Phase**: Create notebooks to display results, metrics, and benchmarks
+   - Compare performance across architectures
+   - Visualize training metrics and generation capabilities
