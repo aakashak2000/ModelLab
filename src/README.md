@@ -1,5 +1,14 @@
 # ModelLab Source Code
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/aakashak2000/aakashak2000/main/modellab_logo.svg" alt="ModelLab Logo" width="200"/>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" alt="PyTorch"/>
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
+</p>
+
 This directory contains the core implementation of the ModelLab project, organized to provide a clear structure for different components of the text generation models.
 
 ## Directory Structure
@@ -59,6 +68,23 @@ Common utility functions:
 Executable scripts for training and generation:
 - `train.py`: Universal training script for all model architectures
 - `generate.py`: Text generation using trained models
+
+## Development Status
+
+| Architecture | PyTorch Implementation | From-Scratch Implementation | Status |
+|--------------|:----------------------:|:---------------------------:|:------:|
+| RNN          | ✅                     | ⏳                          | Active |
+| LSTM         | ✅                     | ⏳                          | Active |
+| GRU          | ✅                     | ⏳                          | Active |
+| Seq2Seq      | 🔄                     | ⏳                          | In Progress |
+| Attention    | ⏳                     | ⏳                          | Planned |
+| Transformer  | ⏳                     | ⏳                          | Planned |
+| MiniGPT      | ⏳                     | ⏳                          | Planned |
+
+Legend:
+- ✅ Complete
+- 🔄 Partially Implemented
+- ⏳ Planned
 
 ## Implementation Guidelines
 
@@ -144,17 +170,3 @@ Legend:
 - ✅ Complete
 - 🔄 Partially Implemented
 - ⏳ Planned
-
-## Implementation Roadmap
-
-1. **Current Phase**: Implement all architectures using PyTorch built-in modules
-   - RNN, LSTM, GRU completed
-   - Seq2seq encoder-decoder blocks implemented
-   - Working on completing Seq2seq implementation
-
-2. **Next Phase**: Implement all architectures from scratch using NumPy
-   - Will start with RNN_from_scratch and progress through all models
-   
-3. **Final Phase**: Create notebooks to display results, metrics, and benchmarks
-   - Compare performance across architectures
-   - Visualize training metrics and generation capabilities

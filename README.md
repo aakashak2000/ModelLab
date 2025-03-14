@@ -1,11 +1,17 @@
 # ModelLab: Evolution of Text Generation Models
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/aakashak2000/aakashak2000/main/modellab_logo.svg" alt="ModelLab Logo" width="300"/>
+</p>
+
 ModelLab is a comprehensive project exploring the evolution of neural text generation architectures, from simple RNNs to complex transformer-based models. This repository provides implementations, training pipelines, and analysis tools to understand how different architectures approach the challenge of text generation.
 
 <p align="center">
   <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" alt="PyTorch"/>
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge" alt="License: MIT"/>
+  <img src="https://img.shields.io/github/stars/yourusername/ModelLab.svg?style=for-the-badge" alt="Stars"/>
+  <img src="https://img.shields.io/github/forks/yourusername/ModelLab.svg?style=for-the-badge" alt="Forks"/>
 </p>
 
 ## 🚀 Project Overview
@@ -30,8 +36,8 @@ ModelLab/
 │   ├── architectures/     # Neural network architectures
 │   │   ├── rnn/           # RNN implementations
 │   │   ├── lstm/          # LSTM implementations
-│   │   ├── gru/           # GRU implementations (WIP)
-│   │   ├── seq2seq/       # Sequence-to-sequence (WIP)
+│   │   ├── gru/           # GRU implementations
+│   │   ├── seq2seq/       # Sequence-to-sequence (encoder-decoder implemented)
 │   │   ├── attention/     # Attention mechanisms (WIP)
 │   │   ├── transformer/   # Transformer architecture (WIP)
 │   │   └── miniGPT/       # GPT-like model (WIP)
@@ -39,11 +45,28 @@ ModelLab/
 │   ├── data/              # Data loading and processing
 │   ├── utils/             # Utility functions
 │   └── scripts/           # Training and generation scripts
-├── notebooks/             # Jupyter notebooks for exploration
+├── notebooks/             # Jupyter notebooks for exploration (coming soon)
 ├── tests/                 # Unit tests
 ├── data/                  # Raw and processed datasets
 └── results/               # Generated samples and metrics
 ```
+
+## Development Status
+
+| Architecture | PyTorch Implementation | From-Scratch Implementation | Status |
+|--------------|:----------------------:|:---------------------------:|:------:|
+| RNN          | ✅                     | ⏳                          | Active |
+| LSTM         | ✅                     | ⏳                          | Active |
+| GRU          | ✅                     | ⏳                          | Active |
+| Seq2Seq      | 🔄                     | ⏳                          | In Progress |
+| Attention    | ⏳                     | ⏳                          | Planned |
+| Transformer  | ⏳                     | ⏳                          | Planned |
+| MiniGPT      | ⏳                     | ⏳                          | Planned |
+
+Legend:
+- ✅ Complete
+- 🔄 Partially Implemented
+- ⏳ Planned
 
 ## 🔧 Setup and Usage
 
@@ -96,7 +119,7 @@ python src/scripts/generate.py \
 
 ## 📈 Model Comparison
 
-The repository includes analysis tools to compare different architectures across metrics like:
+The repository will include analysis tools to compare different architectures across metrics like:
 
 - Training and validation loss
 - Perplexity
@@ -104,42 +127,15 @@ The repository includes analysis tools to compare different architectures across
 - Training efficiency
 - Parameter count
 
-Check the `notebooks/02_model_comparison.ipynb` notebook for detailed comparisons.
-
-## 🔍 Example Outputs
-
-Here are sample outputs from different model architectures (trained on the same dataset):
-
-**RNN:**
-```
-The storee of the world was a little of the world of the story of the world...
-```
-
-**LSTM:**
-```
-The story begins with a character who finds themselves in an unusual situation...
-```
-
-## 📚 Learning Resources
-
-This project is designed as a learning resource for understanding:
-
-- The evolution of text generation architectures
-- How improvements in neural network design address limitations
-- Best practices for implementation and training
-- Techniques for text generation, sampling, and evaluation
-
 ## 🤝 Contributing
 
 Contributions are welcome! Areas that could use help:
 
-- Implementing remaining architectures (Seq2Seq, Attention, Transformer, MiniGPT)
+- Implementing remaining architectures (Attention, Transformer, MiniGPT)
 - Improving documentation and tutorials
 - Adding visualization tools
 - Enhancing training efficiency
 - Creating more comprehensive evaluation metrics
-
-Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## 📄 License
 
