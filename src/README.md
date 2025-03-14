@@ -1,7 +1,7 @@
 # ModelLab Source Code
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/aakashak2000/aakashak2000/main/modellab_logo.svg" alt="ModelLab Logo" width="200"/>
+  <img src="https://raw.githubusercontent.com/aakashak2000/ModelLab/master/ModelLab_logo.png" alt="ModelLab Logo" width="200"/>
 </p>
 
 <p align="center">
