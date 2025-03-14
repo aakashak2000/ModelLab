@@ -25,7 +25,7 @@ Neural network architectures for text generation, arranged by model type:
   - `lstm_from_scratch.py`: Custom implementation (WIP)
 
 - **`gru/`**: Gated Recurrent Units
-  - `gru.py`: PyTorch implementation ✓
+  - `gru.py`: PyTorch implementation 
   - `gru_from_scratch.py`: Custom implementation (WIP)
 
 - **`seq2seq/`**: Sequence-to-Sequence Models
