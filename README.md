@@ -10,8 +10,8 @@ ModelLab is a comprehensive project exploring the evolution of neural text gener
   <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" alt="PyTorch"/>
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge" alt="License: MIT"/>
-  <img src="https://img.shields.io/github/stars/yourusername/ModelLab.svg?style=for-the-badge" alt="Stars"/>
-  <img src="https://img.shields.io/github/forks/yourusername/ModelLab.svg?style=for-the-badge" alt="Forks"/>
+  <img src="https://img.shields.io/github/stars/aakashak2000/ModelLab.svg?style=for-the-badge" alt="Stars"/>
+  <img src="https://img.shields.io/github/forks/aakashak2000/ModelLab.svg?style=for-the-badge" alt="Forks"/>
 </p>
 
 ## 🚀 Project Overview
